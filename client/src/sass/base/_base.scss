@@ -1,0 +1,74 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+a {
+  text-decoration: none;
+}
+
+button,
+a {
+  color: inherit;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+li {
+  list-style: none;
+}
+
+html {
+  color: #222222;
+}
+
+body {
+  font-size: 1.15rem;
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  color: $dark;
+}
+
+button {
+  padding: 0.5rem 0.75rem;
+  line-height: 1.1rem;
+  width: fit-content;
+  border-radius: 2px;
+  background-color: $dark;
+  border: 1px solid $white;
+  color: $white;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: $white;
+    border: 1px solid $dark;
+    color: $dark;
+  }
+}
+
+input {
+  padding: 0.5rem;
+}
+
+select {
+  padding: 0.5rem;
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 4vw;
+  padding-right: 4vw;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  margin: 5rem auto 4rem auto;
+  align-items: center;
+}

@@ -1,0 +1,24 @@
+.irs-table-group {
+  h3 {
+    margin-bottom: 2rem;
+  }
+
+  table {
+    width: 100%;
+    border-spacing: 0rem;
+    border: 1px solid rgba($dark, 0.5);
+    border-bottom: none;
+    margin-bottom: 2rem;
+
+    th {
+      padding: 1rem;
+      border-collapse: collapse;
+      border-bottom: 1px solid rgba($dark, 0.5);
+    }
+  }
+
+  .table-pager {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

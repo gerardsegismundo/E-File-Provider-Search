@@ -1,0 +1,11 @@
+.sort-box {
+  display: flex;
+  flex-direction: column;
+  align-self: end;
+  margin-left: auto;
+
+  label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+}
