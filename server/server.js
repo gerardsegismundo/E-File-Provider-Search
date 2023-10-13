@@ -48,11 +48,12 @@ app.get('/api/scrape', async (req, res) => {
 function scrapeDataBetweenBrTags(html) {
   const $ = load(html)
   const brElements = $('br')
-  const businessInfo = []
+  const labels = ['NameOfBusiness', 'Address', 'CityStateZIP', 'PointOfContact', 'Telephone', 'TypeOfService']
+  const businessInfo = {}
   let firstElement = brElements[0].prev
 
   if (firstElement && firstElement.type === 'text') {
-    businessInfo.push(firstElement.data.trim())
+    businessInfo[labels[0]] = firstElement.data.trim()
   }
 
   for (let i = 0; i < brElements.length; i++) {
@@ -64,10 +65,10 @@ function scrapeDataBetweenBrTags(html) {
         const anchorText = $('a', html).text()
 
         if (anchorText) {
-          businessInfo.push(anchorText)
+          businessInfo[labels[i + 1]] = anchorText
         }
       } else {
-        businessInfo.push(nextElement.data.trim())
+        businessInfo[labels[i + 1]] = nextElement.data.trim()
       }
     }
   }

@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import IRStableReducer from './slice/IRSTableSlice'
+import IRSTableReducer from './slice/IRSTableSlice'
 
 const store = configureStore({
   reducer: {
-    IRStable: IRStableReducer
+    IRSTable: IRSTableReducer
   }
 })
 
