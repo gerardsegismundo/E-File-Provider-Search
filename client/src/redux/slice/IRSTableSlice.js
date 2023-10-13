@@ -1,7 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
+  displayNumbers: { start: 0, end: 0 },
+  currentLocation: { state: '', zipCode: '' },
   IRSProviders: [],
+  currentPage: 0,
   foundMatches: 0
 }
 
@@ -14,6 +17,15 @@ export const IRStableSlice = createSlice({
     },
     setFoundMatches: (state, action) => {
       state.foundMatches = action.payload
+    },
+    setDisplayNumbers: (state, action) => {
+      state.displayNumbers = action.payload
+    },
+    setCurrentLocation: (state, action) => {
+      state.currentLocation = action.payload
+    },
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload
     },
     sortBy: (state, action) => {
       const sortOption = action.payload
@@ -36,6 +48,7 @@ export const IRStableSlice = createSlice({
   }
 })
 
-export const { setIRSProviders, setFoundMatches, sortBy } = IRStableSlice.actions
+export const { setIRSProviders, setFoundMatches, setDisplayNumbers, setCurrentLocation, setCurrentPage, sortBy } =
+  IRStableSlice.actions
 
 export default IRStableSlice.reducer

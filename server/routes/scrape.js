@@ -6,10 +6,18 @@ const router = express.Router()
 
 router.get('/', async (req, res) => {
   try {
-    const { state, zipCode } = req.query
-    const firstBaseUrl = `https://www.irs.gov/efile-index-taxpayer-search?zip=${zipCode}&state=${state}`
+    const { state, zipCode, page } = req.query
 
-    const data = await fetchData(firstBaseUrl)
+    let baseUrl = `https://www.irs.gov/efile-index-taxpayer-search?zip=${zipCode}&state=${state}`
+
+    let currentPage = 0
+
+    if (page) {
+      baseUrl += `&page=${page}`
+      currentPage = page
+    }
+
+    const data = await fetchData(baseUrl)
 
     const IRSProviders = []
 
@@ -17,6 +25,12 @@ router.get('/', async (req, res) => {
 
     const headingText = $('#solr-results-summary').text()
     const foundMatches = headingText.match(/Found (\d+) Matching Items/)[1]
+    const displayingNumbers = headingText.match(/Displaying (\d+) - (\d+)/)
+
+    const displayNumbers = {
+      start: displayingNumbers[1],
+      end: displayingNumbers[2]
+    }
 
     const tdElements = $('.views-field-nothing-1').toArray()
     for (const tdElement of tdElements) {
@@ -24,7 +38,8 @@ router.get('/', async (req, res) => {
       const IRSInfo = scrapeDataBetweenBrTags(IRSProviderData)
       IRSProviders.push(IRSInfo)
     }
-    res.json({ IRSProviders, foundMatches })
+
+    res.json({ IRSProviders, foundMatches, displayNumbers, currentPage })
   } catch (error) {
     console.log('Scraping failed', error)
     res.status(500).json({ error: 'Scraping failed' })

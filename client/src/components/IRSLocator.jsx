@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import states from '../data/states'
-import { setIRSProviders, setFoundMatches } from '../redux/slice/IRSTableSlice'
+import { setIRSProviders, setFoundMatches, setDisplayNumbers, setCurrentLocation } from '../redux/slice/IRSTableSlice'
 
 const IRSLocator = () => {
   const [formData, setFormData] = useState({ state: 6, zipCode: 93036 })
@@ -21,8 +21,11 @@ const IRSLocator = () => {
 
       if (response.ok) {
         const data = await response.json()
+        console.log(data)
         dispatch(setIRSProviders(data.IRSProviders))
         dispatch(setFoundMatches(data.foundMatches))
+        dispatch(setDisplayNumbers(data.displayNumbers))
+        dispatch(setCurrentLocation({ state, zipCode }))
       }
     } catch (error) {
       console.error(error)
