@@ -25,7 +25,7 @@ const IRSLocator = () => {
 
       if (response.ok) {
         const data = await response.json()
-        console.log(data)
+
         dispatch(setIRSProviders(data.IRSProviders))
         dispatch(setFoundMatches(data.foundMatches))
       }
