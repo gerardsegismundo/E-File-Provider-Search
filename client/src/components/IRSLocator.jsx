@@ -4,7 +4,9 @@ import states from '../data/states'
 import { setIRSProviders, setFoundMatches, setDisplayNumbers, setCurrentLocation } from '../redux/slice/IRSTableSlice'
 
 const IRSLocator = () => {
-  const [formData, setFormData] = useState({ state: 6, zipCode: 93036 })
+  /* FOR TESTING - default value I use for testing  */
+  // const [formData, setFormData] = useState({ state: 6, zipCode: 93036 })
+  const [formData, setFormData] = useState({ state: '', zipCode: '' })
   const dispatch = useDispatch()
 
   const handleFormChange = e => {

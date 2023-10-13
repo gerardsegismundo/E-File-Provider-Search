@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import { ReactComponent as ChevRight } from '../svg/chev-right.svg'
 import { ReactComponent as ChevLeft } from '../svg/chev-left.svg'
 import { useSelector, useDispatch } from 'react-redux'
