@@ -36,11 +36,6 @@ const IRSTableGroup = () => {
     fetchData(1)
   }
 
-  // useEffect(() => {
-  //   // Fetch initial data when the component mounts
-  //   fetchData(0)
-  // }, [currentLocation.state, currentLocation.zipCode, currentPage])
-
   return (
     <div className='irs-table-group'>
       {foundMatches > 0 && (
