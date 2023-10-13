@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react'
 import { ReactComponent as ChevRight } from '../svg/chev-right.svg'
 import { ReactComponent as ChevLeft } from '../svg/chev-left.svg'
 import { useSelector, useDispatch } from 'react-redux'
@@ -10,6 +11,10 @@ const IRSTableGroup = () => {
   const dispatch = useDispatch()
 
   const fetchData = async pageOffset => {
+    console.log(`is end: ${displayNumbers.end} < ${foundMatches}`)
+    console.log(`TYPES: ${typeof displayNumbers.end} < ${typeof foundMatches}`)
+    console.log(displayNumbers.end < foundMatches)
+    console.log(currentPage)
     try {
       const response = await fetch(
         `http://localhost:5000/api/scrape?state=${currentLocation.state}&zipCode=${currentLocation.zipCode}&page=${
@@ -34,6 +39,11 @@ const IRSTableGroup = () => {
   const handleNextPage = () => {
     fetchData(1)
   }
+
+  useEffect(() => {
+    // Fetch initial data when the component mounts
+    fetchData(0)
+  }, [currentLocation.state, currentLocation.zipCode, currentPage])
 
   return (
     <div className='irs-table-group'>

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   displayNumbers: { start: 0, end: 0 },
-  currentLocation: { state: '', zipCode: '' },
+  currentLocation: { zipCode: '', state: '' },
   IRSProviders: [],
   currentPage: 0,
   foundMatches: 0

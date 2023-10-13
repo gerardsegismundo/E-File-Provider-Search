@@ -6,7 +6,7 @@ import { setIRSProviders, setFoundMatches, setDisplayNumbers, setCurrentLocation
 const IRSLocator = () => {
   /* FOR TESTING - default value I use for testing  */
   // const [formData, setFormData] = useState({ state: 6, zipCode: 93036 })
-  const [formData, setFormData] = useState({ state: '', zipCode: '' })
+  const [formData, setFormData] = useState({ zipCode: '', state: 'All' })
   const dispatch = useDispatch()
 
   const handleFormChange = e => {
@@ -27,7 +27,7 @@ const IRSLocator = () => {
         dispatch(setIRSProviders(data.IRSProviders))
         dispatch(setFoundMatches(data.foundMatches))
         dispatch(setDisplayNumbers(data.displayNumbers))
-        dispatch(setCurrentLocation({ state, zipCode }))
+        dispatch(setCurrentLocation({ zipCode, state }))
       }
     } catch (error) {
       console.error(error)

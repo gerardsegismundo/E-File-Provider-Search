@@ -24,12 +24,12 @@ router.get('/', async (req, res) => {
     const $ = load(data)
 
     const headingText = $('#solr-results-summary').text()
-    const foundMatches = headingText.match(/Found (\d+) Matching Items/)[1]
+    const foundMatches = Number(headingText.match(/Found (\d+) Matching Items/)[1])
     const displayingNumbers = headingText.match(/Displaying (\d+) - (\d+)/)
 
     const displayNumbers = {
-      start: displayingNumbers[1],
-      end: displayingNumbers[2]
+      start: Number(displayingNumbers[1]),
+      end: Number(displayingNumbers[2])
     }
 
     const tdElements = $('.views-field-nothing-1').toArray()
