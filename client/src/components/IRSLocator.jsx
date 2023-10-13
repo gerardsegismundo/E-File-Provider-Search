@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import states from '../data/states'
+import { useDispatch } from 'react-redux'
+import { setTableData } from '../redux/slice/IRSTableSlice'
 
 const IRSLocator = () => {
   const [state, setState] = useState(6)
   const [zipCode, setzipCode] = useState(93036)
-  // const [scrapedData, setScrapedData] = useState([])
+
+  const dispatch = useDispatch()
 
   const handleStateChange = e => {
     setState(e.target.value)
@@ -22,7 +25,7 @@ const IRSLocator = () => {
 
       if (response.ok) {
         const data = await response.json()
-        console.log(data)
+        dispatch(setTableData(data))
       }
     } catch (error) {
       console.error(error)
