@@ -14,7 +14,8 @@ export const IRStableSlice = createSlice({
     },
     setFoundMatches: (state, action) => {
       state.foundMatches = action.payload
-    }
+    },
+    sortBy: (state, action) => {}
   }
 })
 

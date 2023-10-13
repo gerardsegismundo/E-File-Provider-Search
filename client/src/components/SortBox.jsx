@@ -1,9 +1,10 @@
 import { useState } from 'react'
-// import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 const SortBox = () => {
-  // const { IRSProviders } = useSelector(state => state.IRSTable)
   const [sortBy, setSortBy] = useState('Name')
+  const { IRSProviders } = useSelector(state => state.IRSTable)
+  const dispatch = useDispatch()
 
   const handleSortChange = e => {
     setSortBy(e.target.value)

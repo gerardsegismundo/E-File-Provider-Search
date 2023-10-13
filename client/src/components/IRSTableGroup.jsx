@@ -7,41 +7,45 @@ const IRSTableGroup = () => {
 
   return (
     <div className='irs-table-group'>
-      <h3>Found {foundMatches} Matching Items; Displaying 1 - 10.</h3>
-      <table>
-        <tbody>
-          <tr>
-            <th>Name of Business</th>
-            <th>Address</th>
-            <th>City/State/ZIP</th>
-            <th>Point Of Contact</th>
-            <th>Telephone</th>
-            <th>Type of Service</th>
-          </tr>
+      {foundMatches > 0 && (
+        <>
+          <h3>Found {foundMatches} Matching Items; Displaying 1 - 10.</h3>
+          <table>
+            <tbody>
+              <tr>
+                <th>Name of Business</th>
+                <th>Address</th>
+                <th>City/State/ZIP</th>
+                <th>Point Of Contact</th>
+                <th>Telephone</th>
+                <th>Type of Service</th>
+              </tr>
 
-          {IRSProviders.map((d, i) => (
-            <tr key={i}>
-              <th>{d.NameOfBusiness}</th>
-              <th>{d.Address}</th>
-              <th>{d.CityStateZIP}</th>
-              <th>{d.PointOfContact}</th>
-              <th>{d.Telephone}</th>
-              <th>{d.TypeOfService}</th>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      {foundMatches < 10 ? (
-        ''
-      ) : (
-        <div className='table-pager'>
-          <button>
-            <ChevLeft />
-          </button>
-          <button>
-            <ChevRight />
-          </button>
-        </div>
+              {IRSProviders.map((d, i) => (
+                <tr key={i}>
+                  <th>{d.NameOfBusiness}</th>
+                  <th>{d.Address}</th>
+                  <th>{d.CityStateZIP}</th>
+                  <th>{d.PointOfContact}</th>
+                  <th>{d.Telephone}</th>
+                  <th>{d.TypeOfService}</th>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {foundMatches < 10 ? (
+            ''
+          ) : (
+            <div className='table-pager'>
+              <button>
+                <ChevLeft />
+              </button>
+              <button>
+                <ChevRight />
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   )
