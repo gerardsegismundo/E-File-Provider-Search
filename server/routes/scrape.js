@@ -8,11 +8,16 @@ router.get('/', async (req, res) => {
   try {
     const { state, zipCode } = req.query
     const firstBaseUrl = `https://www.irs.gov/efile-index-taxpayer-search?zip=${zipCode}&state=${state}`
+
     const data = await fetchData(firstBaseUrl)
-    const $ = load(data)
+
     const IRSProviders = []
+
+    const $ = load(data)
+
     const headingText = $('#solr-results-summary').text()
     const foundMatches = headingText.match(/Found (\d+) Matching Items/)[1]
+
     const tdElements = $('.views-field-nothing-1').toArray()
     for (const tdElement of tdElements) {
       const IRSProviderData = $.html(tdElement)
