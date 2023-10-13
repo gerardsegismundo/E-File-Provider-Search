@@ -9,11 +9,16 @@
     border: 1px solid rgba($dark, 0.5);
     border-bottom: none;
     margin-bottom: 2rem;
+    text-align: left;
 
     th {
       padding: 1rem;
       border-collapse: collapse;
       border-bottom: 1px solid rgba($dark, 0.5);
+
+      &:nth-child(4) {
+        text-transform: capitalize;
+      }
     }
   }
 

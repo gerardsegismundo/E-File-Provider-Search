@@ -5,6 +5,7 @@ const SortBox = () => {
 
   const handleSortChange = e => {
     setSortBy(e.target.value)
+    sortIRS(e.target.value)
   }
 
   return (
@@ -13,8 +14,7 @@ const SortBox = () => {
       <select id='SortBy' value={sortBy} onChange={handleSortChange}>
         <option value='Name'>Name</option>
         <option value='Address'>Address</option>
-        <option value='Address'>Address</option>
-        <option value='City'>City</option>
+        <option value='CityStateZIP'>City</option>
         <option value='PointOfContact'>Point of Contact</option>
       </select>
     </div>

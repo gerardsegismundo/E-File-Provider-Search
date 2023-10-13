@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import states from '../data/states'
 import { useDispatch } from 'react-redux'
-import { setTableData } from '../redux/slice/IRSTableSlice'
+import { setIRSProviders, setFoundMatches } from '../redux/slice/IRSTableSlice'
 
 const IRSLocator = () => {
   const [state, setState] = useState(6)
@@ -25,7 +25,9 @@ const IRSLocator = () => {
 
       if (response.ok) {
         const data = await response.json()
-        dispatch(setTableData(data))
+        console.log(data)
+        dispatch(setIRSProviders(data.IRSProviders))
+        dispatch(setFoundMatches(data.foundMatches))
       }
     } catch (error) {
       console.error(error)

@@ -1,19 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  tableData: []
+  IRSProviders: [],
+  foundMatches: 0
 }
 
 export const IRStableSlice = createSlice({
   name: 'IRSTable',
   initialState,
   reducers: {
-    setTableData: (state, action) => {
-      state.tableData = action.payload
+    setIRSProviders: (state, action) => {
+      state.IRSProviders = action.payload
+    },
+    setFoundMatches: (state, action) => {
+      state.foundMatches = action.payload
     }
   }
 })
 
-export const { setTableData } = IRStableSlice.actions
+export const { setIRSProviders, setFoundMatches } = IRStableSlice.actions
 
 export default IRStableSlice.reducer

@@ -10,7 +10,6 @@ app.use(express.json())
 
 app.get('/api/scrape', async (req, res) => {
   const { state, zipCode } = req.query
-  console.log({ state, zipCode })
 
   const firstbaseUrl = `https://www.irs.gov/efile-index-taxpayer-search?zip=${zipCode}&state=${state}`
 
@@ -24,19 +23,20 @@ app.get('/api/scrape', async (req, res) => {
 
       webResponse.on('end', () => {
         const $ = load(data)
-        const businesses = []
+        const IRSProviders = []
 
-        const elements = $('.views-field-nothing-1').toArray()
+        const headingText = $('#solr-results-summary').text()
+        const foundMatches = headingText.match(/Found (\d+) Matching Items/)[1]
 
-        for (const element of elements) {
-          const businessData = $.html(element)
-          const businessInfo = scrapeDataBetweenBrTags(businessData)
-          businesses.push(businessInfo)
+        const tdElements = $('.views-field-nothing-1').toArray()
+
+        for (const tdElement of tdElements) {
+          const IRSProviderData = $.html(tdElement)
+          const IRSInfo = scrapeDataBetweenBrTags(IRSProviderData)
+          IRSProviders.push(IRSInfo)
         }
 
-        console.log(businesses)
-
-        res.json(businesses)
+        res.json({ IRSProviders, foundMatches })
       })
     })
   } catch (error) {
@@ -49,11 +49,11 @@ function scrapeDataBetweenBrTags(html) {
   const $ = load(html)
   const brElements = $('br')
   const labels = ['NameOfBusiness', 'Address', 'CityStateZIP', 'PointOfContact', 'Telephone', 'TypeOfService']
-  const businessInfo = {}
+  const IRSInfo = {}
   let firstElement = brElements[0].prev
 
   if (firstElement && firstElement.type === 'text') {
-    businessInfo[labels[0]] = firstElement.data.trim()
+    IRSInfo[labels[0]] = firstElement.data.trim()
   }
 
   for (let i = 0; i < brElements.length; i++) {
@@ -65,15 +65,15 @@ function scrapeDataBetweenBrTags(html) {
         const anchorText = $('a', html).text()
 
         if (anchorText) {
-          businessInfo[labels[i + 1]] = anchorText
+          IRSInfo[labels[i + 1]] = anchorText
         }
       } else {
-        businessInfo[labels[i + 1]] = nextElement.data.trim()
+        IRSInfo[labels[i + 1]] = nextElement.data.trim()
       }
     }
   }
 
-  return businessInfo
+  return IRSInfo
 }
 
 const PORT = process.env.PORT || 5000

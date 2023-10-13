@@ -3,11 +3,11 @@ import { ReactComponent as ChevLeft } from '../svg/chev-left.svg'
 import { useSelector } from 'react-redux'
 
 const IRSTableGroup = () => {
-  const { tableData } = useSelector(state => state.IRSTable)
+  const { IRSProviders, foundMatches } = useSelector(state => state.IRSTable)
 
   return (
     <div className='irs-table-group'>
-      <h3>Found 51 Matching Items; Displaying 1 - 10.</h3>
+      <h3>Found {foundMatches} Matching Items; Displaying 1 - 10.</h3>
       <table>
         <tbody>
           <tr>
@@ -19,8 +19,8 @@ const IRSTableGroup = () => {
             <th>Type of Service</th>
           </tr>
 
-          {tableData.map(d => (
-            <tr>
+          {IRSProviders.map((d, i) => (
+            <tr key={i}>
               <th>{d.NameOfBusiness}</th>
               <th>{d.Address}</th>
               <th>{d.CityStateZIP}</th>
@@ -31,14 +31,18 @@ const IRSTableGroup = () => {
           ))}
         </tbody>
       </table>
-      <div className='table-pager'>
-        <button>
-          <ChevLeft />
-        </button>
-        <button>
-          <ChevRight />
-        </button>
-      </div>
+      {foundMatches < 10 ? (
+        ''
+      ) : (
+        <div className='table-pager'>
+          <button>
+            <ChevLeft />
+          </button>
+          <button>
+            <ChevRight />
+          </button>
+        </div>
+      )}
     </div>
   )
 }
