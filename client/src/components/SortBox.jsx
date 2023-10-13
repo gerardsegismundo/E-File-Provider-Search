@@ -1,11 +1,13 @@
 import { useState } from 'react'
+// import { useSelector } from 'react-redux'
 
 const SortBox = () => {
+  // const { IRSProviders } = useSelector(state => state.IRSTable)
   const [sortBy, setSortBy] = useState('Name')
 
   const handleSortChange = e => {
     setSortBy(e.target.value)
-    sortIRS(e.target.value)
+    // sortIRS(e.target.value)
   }
 
   return (
