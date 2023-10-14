@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import { ReactComponent as ChevRight } from '../svg/chev-right.svg'
 import { ReactComponent as ChevLeft } from '../svg/chev-left.svg'
 import { useSelector, useDispatch } from 'react-redux'
@@ -35,11 +34,6 @@ const IRSTableGroup = () => {
   const handleNextPage = () => {
     fetchData(1)
   }
-
-  useEffect(() => {
-    // Fetch initial data when the component mounts
-    fetchData(0)
-  }, [currentLocation.state, currentLocation.zipCode, currentPage])
 
   return (
     <div className='irs-table-group'>
