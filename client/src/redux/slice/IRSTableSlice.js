@@ -29,8 +29,6 @@ export const IRStableSlice = createSlice({
       state.currentPage = action.payload
     },
     setFetchFailed: (state, action) => {
-      console.log('OI!')
-      console.log(action.payload)
       state.fetchFailed = action.payload
     },
     sortBy: (state, action) => {
