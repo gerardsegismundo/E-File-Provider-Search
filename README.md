@@ -40,8 +40,5 @@ _Search Result: Displays 10 results with each fetch, along with the count of mat
 ![Last Page](https://imgur.com/A8nMeGP.png)
 _Last Page._
 
-![Sort By](https://imgur.com/eoZJOvC.png)
-_Sort By Implementation: This image showcases the results sorted by Point of Contact._
-
 ![No Result](https://imgur.com/0U6f5Bw.png)
 _No Result: Shown when the search does not return any results._
