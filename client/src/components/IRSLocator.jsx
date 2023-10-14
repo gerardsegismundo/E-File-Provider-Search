@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import states from '../data/states'
-import { setIRSProviders, setFoundMatches, setDisplayNumbers, setCurrentLocation } from '../redux/slice/IRSTableSlice'
+import {
+  setIRSProviders,
+  setFoundMatches,
+  setDisplayNumbers,
+  setCurrentLocation,
+  setFetchFailed
+} from '../redux/slice/IRSTableSlice'
 
 const IRSLocator = () => {
   /* FOR TESTING - default value I use for testing  */
@@ -28,9 +34,13 @@ const IRSLocator = () => {
         dispatch(setFoundMatches(data.foundMatches))
         dispatch(setDisplayNumbers(data.displayNumbers))
         dispatch(setCurrentLocation({ zipCode, state }))
+        dispatch(setFetchFailed(false))
+      } else {
+        dispatch(setFetchFailed(true))
       }
     } catch (error) {
       console.error(error)
+      setFetchFailed(true)
     }
   }
 

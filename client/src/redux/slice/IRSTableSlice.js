@@ -5,7 +5,8 @@ const initialState = {
   currentLocation: { zipCode: '', state: '' },
   IRSProviders: [],
   currentPage: 0,
-  foundMatches: 0
+  foundMatches: 0,
+  fetchFailed: false
 }
 
 export const IRStableSlice = createSlice({
@@ -26,6 +27,11 @@ export const IRStableSlice = createSlice({
     },
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload
+    },
+    setFetchFailed: (state, action) => {
+      console.log('OI!')
+      console.log(action.payload)
+      state.fetchFailed = action.payload
     },
     sortBy: (state, action) => {
       const sortOption = action.payload
@@ -48,7 +54,14 @@ export const IRStableSlice = createSlice({
   }
 })
 
-export const { setIRSProviders, setFoundMatches, setDisplayNumbers, setCurrentLocation, setCurrentPage, sortBy } =
-  IRStableSlice.actions
+export const {
+  setIRSProviders,
+  setFoundMatches,
+  setDisplayNumbers,
+  setCurrentLocation,
+  setCurrentPage,
+  setFetchFailed,
+  sortBy
+} = IRStableSlice.actions
 
 export default IRStableSlice.reducer

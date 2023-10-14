@@ -5,16 +5,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setIRSProviders, setDisplayNumbers, setCurrentPage } from '../redux/slice/IRSTableSlice'
 
 const IRSTableGroup = () => {
-  const { IRSProviders, foundMatches, displayNumbers, currentPage, currentLocation } = useSelector(
+  const { IRSProviders, foundMatches, displayNumbers, currentPage, currentLocation, fetchFailed } = useSelector(
     state => state.IRSTable
   )
   const dispatch = useDispatch()
 
   const fetchData = async pageOffset => {
-    console.log(`is end: ${displayNumbers.end} < ${foundMatches}`)
-    console.log(`TYPES: ${typeof displayNumbers.end} < ${typeof foundMatches}`)
-    console.log(displayNumbers.end < foundMatches)
-    console.log(currentPage)
     try {
       const response = await fetch(
         `http://localhost:5000/api/scrape?state=${currentLocation.state}&zipCode=${currentLocation.zipCode}&page=${
@@ -47,50 +43,57 @@ const IRSTableGroup = () => {
 
   return (
     <div className='irs-table-group'>
-      {foundMatches > 0 && (
-        <>
-          <h3>
-            Found {foundMatches} Matching Items; Displaying {displayNumbers.start} - {displayNumbers.end}
-          </h3>
-          <table>
-            <tbody>
-              <tr>
-                <th>Name of Business</th>
-                <th>Address</th>
-                <th>City/State/ZIP</th>
-                <th>Point Of Contact</th>
-                <th>Telephone</th>
-                <th>Type of Service</th>
-              </tr>
-
-              {IRSProviders.map((d, i) => (
-                <tr key={i}>
-                  <th>{d.NameOfBusiness}</th>
-                  <th>{d.Address}</th>
-                  <th>{d.CityStateZIP}</th>
-                  <th>{d.PointOfContact}</th>
-                  <th>{d.Telephone}</th>
-                  <th>{d.TypeOfService}</th>
+      {fetchFailed ? (
+        <div className='fetch-failed-message'>
+          <h2>Your search did not return any results. Please try again.</h2>
+        </div>
+      ) : (
+        foundMatches > 0 && (
+          <>
+            <h2>Found {foundMatches} matching items.</h2>
+            <h3>
+              Displaying {displayNumbers.start} - {displayNumbers.end}:
+            </h3>
+            <table>
+              <tbody>
+                <tr>
+                  <th>Name of Business</th>
+                  <th>Address</th>
+                  <th>City/State/ZIP</th>
+                  <th>Point Of Contact</th>
+                  <th>Telephone</th>
+                  <th>Type of Service</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          {foundMatches >= 10 && (
-            <div className='table-pager'>
-              {displayNumbers.start >= 2 && (
-                <button onClick={handlePrevPage}>
-                  <ChevLeft />
-                </button>
-              )}
 
-              {displayNumbers.end < foundMatches && (
-                <button onClick={handleNextPage}>
-                  <ChevRight />
-                </button>
-              )}
-            </div>
-          )}
-        </>
+                {IRSProviders.map((d, i) => (
+                  <tr key={i}>
+                    <th>{d.NameOfBusiness}</th>
+                    <th>{d.Address}</th>
+                    <th>{d.CityStateZIP}</th>
+                    <th>{d.PointOfContact}</th>
+                    <th>{d.Telephone}</th>
+                    <th>{d.TypeOfService}</th>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {foundMatches >= 10 && (
+              <div className='table-pager'>
+                {displayNumbers.start >= 2 && (
+                  <button onClick={handlePrevPage}>
+                    <ChevLeft />
+                  </button>
+                )}
+
+                {displayNumbers.end < foundMatches && (
+                  <button onClick={handleNextPage}>
+                    <ChevRight />
+                  </button>
+                )}
+              </div>
+            )}
+          </>
+        )
       )}
     </div>
   )
