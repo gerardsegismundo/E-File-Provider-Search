@@ -2,27 +2,28 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { sortBy } from '../redux/slice/IRSTableSlice'
 
+import { Flex, Select, Form } from 'antd'
+const { Option } = Select
+
 const SortBox = () => {
   const [sortByOption, setSortByOption] = useState('Name')
   const dispatch = useDispatch()
 
-  const handleSortChange = e => {
-    const sortOption = e.target.value
-
-    setSortByOption(sortOption)
-    dispatch(sortBy(sortOption))
+  const handleSortChange = value => {
+    setSortByOption(value)
+    dispatch(sortBy(value))
   }
 
   return (
-    <div className='sort-box'>
-      <label htmlFor='SortBy'>Sort By</label>
-      <select id='SortBy' value={sortByOption} onChange={handleSortChange}>
-        <option value='NameOfBusiness'>Name Of Business</option>
-        <option value='Address'>Address</option>
-        <option value='CityStateZIP'>City/State/ZIP</option>
-        <option value='PointOfContact'>Point of Contact</option>
-      </select>
-    </div>
+    <Flex align='self-end' style={{ marginLeft: 'auto' }} className='sort-box'>
+      <label htmlFor='SortBy'>SortBy: </label>
+      <Select id='SortBy' value={sortByOption} onChange={handleSortChange} style={{ width: 160 }}>
+        <Option value='NameOfBusiness'>Name Of Business</Option>
+        <Option value='Address'>Address</Option>
+        <Option value='CityStateZIP'>City/State/ZIP</Option>
+        <Option value='PointOfContact'>Point of Contact</Option>
+      </Select>
+    </Flex>
   )
 }
 

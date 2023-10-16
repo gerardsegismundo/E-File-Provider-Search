@@ -8,7 +8,6 @@
     "start": "node server/server.js",
     "server": "nodemon server/server.js",
     "client": "npm run start --prefix client",
-    "clientinstall": "npm run --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Gerard Martin R. Segismundo",
