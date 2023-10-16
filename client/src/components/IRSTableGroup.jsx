@@ -1,5 +1,5 @@
-import { ReactComponent as ChevRight } from '../svg/chev-right.svg'
-import { ReactComponent as ChevLeft } from '../svg/chev-left.svg'
+import { ReactComponent as ChevRight } from '../utils/svg/chev-right.svg'
+import { ReactComponent as ChevLeft } from '../utils/svg/chev-left.svg'
 import { useSelector, useDispatch } from 'react-redux'
 import { setIRSProviders, setDisplayNumbers, setCurrentPage } from '../redux/slice/IRSTableSlice'
 

@@ -1,5 +1,5 @@
 import express from 'express'
-import { fetchData, scrapeDataBetweenBrTags } from '../utils/index.js'
+import { fetchData, extractData } from '../utils/index.js'
 import { load } from 'cheerio'
 
 const router = express.Router()
@@ -33,10 +33,10 @@ router.get('/', async (req, res) => {
     }
 
     const tdElements = $('.views-field-nothing-1').toArray()
+
     for (const tdElement of tdElements) {
-      const IRSProviderData = $.html(tdElement)
-      const IRSInfo = scrapeDataBetweenBrTags(IRSProviderData)
-      IRSProviders.push(IRSInfo)
+      const extractedData = extractData(tdElement)
+      IRSProviders.push(extractedData)
     }
 
     res.json({ IRSProviders, foundMatches, displayNumbers, currentPage })

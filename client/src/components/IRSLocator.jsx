@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import states from '../data/states'
+import states from '../utils/data/states'
 import {
   setIRSProviders,
   setFoundMatches,
@@ -10,8 +10,6 @@ import {
 } from '../redux/slice/IRSTableSlice'
 
 const IRSLocator = () => {
-  /* FOR TESTING - default value I use for testing  */
-  // const [formData, setFormData] = useState({ state: 6, zipCode: 93036 })
   const [formData, setFormData] = useState({ zipCode: '', state: 'All' })
   const dispatch = useDispatch()
 

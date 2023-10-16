@@ -1,4 +1,4 @@
 import fetchData from './fetchData.js'
-import scrapeDataBetweenBrTags from './scrapeDataBetweenBrTags.js'
+import extractData from './extractData.js'
 
-export { fetchData, scrapeDataBetweenBrTags }
+export { fetchData, extractData }
