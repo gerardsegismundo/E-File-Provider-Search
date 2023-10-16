@@ -1,67 +1,64 @@
-import { ReactComponent as ChevRight } from '../utils/svg/chev-right.svg'
-import { ReactComponent as ChevLeft } from '../utils/svg/chev-left.svg'
+import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import { useSelector, useDispatch } from 'react-redux'
-import { setIRSProviders, setDisplayNumbers, setCurrentPage } from '../redux/slice/IRSTableSlice'
-import { Typography, Table, Button, Pagination } from 'antd'
+import { setIRSProviders, setDisplayNumbers, setCurrentPage, setFetchFailed } from '../redux/slice/IRSTableSlice'
+import { Typography, Table, Pagination, Skeleton } from 'antd'
 
-const { Title, Text } = Typography
+const { Title } = Typography
 
 const IRSTableGroup = () => {
-  const { IRSProviders, foundMatches, displayNumbers, currentPage, currentLocation, fetchFailed } = useSelector(
-    state => state.IRSTable
-  )
+  const [pageLoading, setPageLoading] = useState(false)
+  const { IRSProviders, foundMatches, displayNumbers, currentPage, currentLocation, fetchFailed, tableLoading } =
+    useSelector(state => state.IRSTable)
+
   const dispatch = useDispatch()
 
   const fetchData = async pageOffset => {
+    setPageLoading(true)
     try {
       const response = await fetch(
         `http://localhost:5000/api/scrape?state=${currentLocation.state}&zipCode=${currentLocation.zipCode}&page=${
-          currentPage + pageOffset
+          currentPage - 1 + pageOffset
         }`
       )
+
       if (response.ok) {
         const data = await response.json()
         dispatch(setIRSProviders(data.IRSProviders))
         dispatch(setDisplayNumbers(data.displayNumbers))
-        dispatch(setCurrentPage(currentPage + pageOffset))
+        dispatch(setCurrentPage(currentPage - 1 + pageOffset))
       }
     } catch (error) {
-      console.error(error)
+      dispatch(setFetchFailed(true))
+    } finally {
+      setPageLoading(false)
     }
   }
 
-  const handlePrevPage = () => {
-    fetchData(-1)
+  if (tableLoading) {
+    return <Skeleton active paragraph={{ rows: 30 }} />
   }
 
-  const handleNextPage = () => {
-    fetchData(1)
-  }
-
-  // Pagination configuration
-  const paginationConfig = {
-    pageSize: 10, // Number of items to display per page
-    current: currentPage, // Current page
-    total: foundMatches, // Total number of items
-    onChange: page => {
-      fetchData(page - currentPage)
-    }
+  if (fetchFailed) {
+    return (
+      <div className='fetch-failed-message'>
+        <Title level={2}>Your search did not return any results. Please try again.</Title>
+      </div>
+    )
   }
 
   return (
     <div className='irs-table-group'>
-      {fetchFailed ? (
-        <div className='fetch-failed-message'>
-          <Title level={2}>Your search did not return any results. Please try again.</Title>
-        </div>
-      ) : (
-        foundMatches > 0 && (
-          <>
-            <Title level={2}>Found {foundMatches} matching items.</Title>
-            <Title level={3}>
-              Displaying {displayNumbers.start} - {displayNumbers.end}:
-            </Title>
-            <Table dataSource={IRSProviders} pagination={false}>
+      {foundMatches > 0 && (
+        <>
+          <Title level={2}>Found {foundMatches} matching items.</Title>
+          <Title level={3}>
+            Displaying {displayNumbers.start} - {displayNumbers.end}:
+          </Title>
+          {pageLoading ? (
+            <Skeleton active paragraph={{ rows: 20 }} />
+          ) : (
+            <Table dataSource={IRSProviders} pagination={false} rowKey={() => uuidv4()} style={{ margin: '3rem 0' }}>
               <Table.Column title='Name of Business' dataIndex='NameOfBusiness' key='NameOfBusiness' />
               <Table.Column title='Address' dataIndex='Address' key='Address' />
               <Table.Column title='City/State/ZIP' dataIndex='CityStateZIP' key='CityStateZIP' />
@@ -69,18 +66,18 @@ const IRSTableGroup = () => {
               <Table.Column title='Telephone' dataIndex='Telephone' key='Telephone' />
               <Table.Column title='Type of Service' dataIndex='TypeOfService' key='TypeOfService' />
             </Table>
+          )}
 
-            {foundMatches >= 10 && (
-              <Pagination
-                current={currentPage}
-                total={foundMatches}
-                onChange={page => fetchData(page - currentPage)}
-                showSizeChanger={false}
-                style={{ float: 'right' }}
-              />
-            )}
-          </>
-        )
+          {foundMatches >= 10 && (
+            <Pagination
+              current={currentPage + 1}
+              total={foundMatches}
+              onChange={page => fetchData(page - currentPage)}
+              showSizeChanger={false}
+              style={{ float: 'right' }}
+            />
+          )}
+        </>
       )}
     </div>
   )

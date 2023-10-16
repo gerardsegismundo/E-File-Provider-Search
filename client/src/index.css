@@ -6,32 +6,8 @@
   box-sizing: inherit;
 }
 
-a {
-  text-decoration: none;
-}
-
-button,
-a {
-  color: inherit;
-  &:hover {
-    cursor: pointer;
-  }
-}
-
-li {
-  list-style: none;
-}
-
-html {
-  color: #222222;
-}
-
 body {
-  font-size: 1.15rem;
-  font-family: 'Poppins', sans-serif;
-  overflow-x: hidden;
   box-sizing: border-box;
-  color: $dark;
 }
 
 .container {
@@ -45,5 +21,4 @@ body {
 .header {
   display: flex;
   margin: 5rem auto 4rem auto;
-  align-items: end;
 }

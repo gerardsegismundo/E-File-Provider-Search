@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { sortBy } from '../redux/slice/IRSTableSlice'
 
-import { Flex, Select, Form } from 'antd'
+import { Flex, Select } from 'antd'
 const { Option } = Select
 
 const SortBox = () => {
@@ -16,7 +16,9 @@ const SortBox = () => {
 
   return (
     <Flex align='self-end' style={{ marginLeft: 'auto' }} className='sort-box'>
-      <label htmlFor='SortBy'>SortBy: </label>
+      <label htmlFor='SortBy' style={{ fontWeight: 600, marginBottom: '0.5rem', marginRight: '0.5rem' }}>
+        SortBy:{' '}
+      </label>
       <Select id='SortBy' value={sortByOption} onChange={handleSortChange} style={{ width: 160 }}>
         <Option value='NameOfBusiness'>Name Of Business</Option>
         <Option value='Address'>Address</Option>

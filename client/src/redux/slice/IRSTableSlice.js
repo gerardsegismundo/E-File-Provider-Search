@@ -4,9 +4,10 @@ const initialState = {
   displayNumbers: { start: 0, end: 0 },
   currentLocation: { zipCode: '', state: '' },
   IRSProviders: [],
-  currentPage: 0,
+  currentPage: 1,
   foundMatches: 0,
-  fetchFailed: false
+  fetchFailed: false,
+  tableLoading: false
 }
 
 export const IRStableSlice = createSlice({
@@ -30,6 +31,9 @@ export const IRStableSlice = createSlice({
     },
     setFetchFailed: (state, action) => {
       state.fetchFailed = action.payload
+    },
+    setTableLoading: (state, action) => {
+      state.tableLoading = action.payload
     },
     sortBy: (state, action) => {
       const sortOption = action.payload
@@ -59,7 +63,8 @@ export const {
   setCurrentLocation,
   setCurrentPage,
   setFetchFailed,
-  sortBy
+  sortBy,
+  setTableLoading
 } = IRStableSlice.actions
 
 export default IRStableSlice.reducer

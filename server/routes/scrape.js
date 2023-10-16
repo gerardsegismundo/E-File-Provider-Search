@@ -41,7 +41,6 @@ router.get('/', async (req, res) => {
 
     res.json({ IRSProviders, foundMatches, displayNumbers, currentPage })
   } catch (error) {
-    console.log('Scraping failed', error)
     res.status(500).json({ error: 'Scraping failed' })
   }
 })

@@ -1,22 +1,25 @@
-import React, { useState } from 'react'
 import { Flex, Form, Input, Select, Button, Space, Typography } from 'antd'
-import { useDispatch } from 'react-redux'
+import { SearchOutlined } from '@ant-design/icons'
+import { useDispatch, useSelector } from 'react-redux'
 import states from '../utils/data/states'
 import {
   setIRSProviders,
   setFoundMatches,
   setDisplayNumbers,
   setCurrentLocation,
-  setFetchFailed
+  setFetchFailed,
+  setCurrentPage,
+  setTableLoading
 } from '../redux/slice/IRSTableSlice'
 
 const IRSLocator = () => {
-  const [formData, setFormData] = useState({ zipCode: '', state: 'All' })
+  const { tableLoading } = useSelector(state => state.IRSTable)
   const dispatch = useDispatch()
 
   const onFinish = async ({ zipCode, state }) => {
     if (!state) state = 'All'
     if (!zipCode) zipCode = ''
+    dispatch(setTableLoading(true))
 
     try {
       const response = await fetch(`http://localhost:5000/api/scrape?state=${state}&zipCode=${zipCode}`)
@@ -27,24 +30,30 @@ const IRSLocator = () => {
         dispatch(setIRSProviders(data.IRSProviders))
         dispatch(setFoundMatches(data.foundMatches))
         dispatch(setDisplayNumbers(data.displayNumbers))
+        dispatch(setCurrentPage(0))
         dispatch(setCurrentLocation({ zipCode, state }))
+
         dispatch(setFetchFailed(false))
       } else {
         dispatch(setFetchFailed(true))
       }
     } catch (error) {
-      setFetchFailed(true)
+      dispatch(setFetchFailed(true))
+    } finally {
+      dispatch(setTableLoading(false))
     }
   }
 
   return (
-    <Form onFinish={onFinish} className='irs-locator' layout='inline'>
-      <Typography.Title level={1}>File Provider Search Tool</Typography.Title>
+    <Form onFinish={onFinish} className='irs-locator' layout='inline' style={{ flexDirection: 'column' }}>
+      <Typography.Title level={1} style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>
+        File Provider Search Tool
+      </Typography.Title>
       <Flex>
         <Form.Item label='Address' style={{ fontWeight: 600 }}>
           <Space.Compact>
             <Form.Item name='zipCode' noStyle defaultValue=''>
-              <Input placeholder='Input zip code' />
+              <Input placeholder='Enter zip code' />
             </Form.Item>
 
             <Form.Item name='state' style={{ width: 200 }}>
@@ -58,8 +67,8 @@ const IRSLocator = () => {
             </Form.Item>
           </Space.Compact>
         </Form.Item>
-        <Button type='primary' htmlType='submit' style={{ alignSelf: 'end' }}>
-          Apply
+        <Button htmlType='submit' style={{ alignSelf: 'end' }} loading={tableLoading} icon={<SearchOutlined />}>
+          Search
         </Button>
       </Flex>
     </Form>
