@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { useSelector, useDispatch } from 'react-redux'
 import { setIRSProviders, setDisplayNumbers, setCurrentPage, setFetchFailed } from '../redux/slice/IRSTableSlice'
-import { Typography, Table, Pagination, Skeleton } from 'antd'
+import { Typography, Table, Pagination, Skeleton, Result, Spin, Space } from 'antd'
 
 const { Title } = Typography
 
@@ -36,15 +36,23 @@ const IRSTableGroup = () => {
   }
 
   if (tableLoading) {
-    return <Skeleton active paragraph={{ rows: 30 }} />
+    return (
+      <Space
+        direction='vertical'
+        style={{
+          width: '100%',
+          marginTop: '10rem'
+        }}
+      >
+        <Spin tip='Loading...' size='large'>
+          <div className='content' />
+        </Spin>
+      </Space>
+    )
   }
 
   if (fetchFailed) {
-    return (
-      <div className='fetch-failed-message'>
-        <Title level={2}>Your search did not return any results. Please try again.</Title>
-      </div>
-    )
+    return <Result status='warning' title='Your search did not return any results. Please try again.' />
   }
 
   return (

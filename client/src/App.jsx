@@ -1,6 +1,7 @@
 import IRSLocator from './components/IRSLocator'
 import IRSTableGroup from './components/IRSTableGroup'
 import SortBox from './components/SortBox'
+import { Divider } from 'antd'
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
         <IRSLocator />
         <SortBox />
       </div>
+      <Divider style={{ marginBottom: '3rem' }} />
       <IRSTableGroup />
     </div>
   )

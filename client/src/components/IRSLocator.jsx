@@ -37,8 +37,10 @@ const IRSLocator = () => {
         dispatch(setFetchFailed(false))
       } else {
         dispatch(setFetchFailed(true))
+        dispatch(setIRSProviders([]))
       }
     } catch (error) {
+      dispatch(setIRSProviders([]))
       dispatch(setFetchFailed(true))
     } finally {
       dispatch(setTableLoading(false))
