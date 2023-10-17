@@ -9,16 +9,3 @@
 body {
   box-sizing: border-box;
 }
-
-.container {
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 4vw;
-  padding-right: 4vw;
-  width: 100%;
-}
-
-.header {
-  display: flex;
-  margin: 5rem auto 3rem auto;
-}
