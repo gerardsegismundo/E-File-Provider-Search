@@ -17,9 +17,9 @@ const IRSTableGroup = () => {
     setPageLoading(true)
     try {
       const response = await fetch(
-        `http://localhost:5000/api/scrape?state=${currentLocation.state}&zipCode=${currentLocation.zipCode}&page=${
-          currentPage - 1 + pageOffset
-        }`
+        `${process.env.REACT_APP_BASE_API}/api/scrape?state=${currentLocation.state}&zipCode=${
+          currentLocation.zipCode
+        }&page=${currentPage - 1 + pageOffset}`
       )
 
       if (response.ok) {
