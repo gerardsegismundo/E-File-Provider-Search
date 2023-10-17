@@ -58,3 +58,10 @@ To start the application, use the following command: `$ npm run dev`.
 6. **No Result:**
    ![No Result](https://i.imgur.com/0NqnIq4.png)
    No Result: Shown when the search does not return any results.
+
+## Deployment
+
+You can access the deployed application using the following links:
+
+- [Render Deployment](https://efile-provider-search.onrender.com/)
+- [Railway Deployment](https://e-file-provider-search-production.up.railway.app/)
