@@ -1,6 +1,6 @@
 # IRS Project
 
-This is an application that requests a list of tax return preparers from the IRS, based on a user-provided zip code (e.g., 93036) and state.
+This application fetches a list of tax return preparers from the IRS, based on a user-provided zip code (e.g., 93036) and state.
 
 The IRS website is available [here](http://www.irs.gov/uac/Authorized-IRS-e-file-Providers-for-Individuals).
 
@@ -10,7 +10,7 @@ The IRS website is available [here](http://www.irs.gov/uac/Authorized-IRS-e-file
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Running the Application](#running-the-application)
-- [Images](#images)
+- [User Interface](#user-interface)
 
 ## Getting Started
 
@@ -32,13 +32,28 @@ Before you begin, ensure you have the following installed:
 
 To start the application, use the following command: `$ npm run dev`.
 
-### Images
+### User Interface
 
-![Search Result](https://i.imgur.com/G61WAQu.png)
-_Search Result: Displays 10 results with each fetch, along with the count of matching items, similar to the IRS webpage._
+1. **Search Result:**
+   ![Search Result](https://i.imgur.com/lrnIq57.png)
+   Displays 10 results with each fetch, along with the count of matching items, similar to the IRS webpage.
 
-![Last Page](https://imgur.com/A8nMeGP.png)
-_Last Page._
+2. **Loading Search Results:**
+   ![Loading Search Results](https://i.imgur.com/HMcZMOz.png)
+   Loading Search Results...
 
-![No Result](https://imgur.com/0U6f5Bw.png)
-_No Result: Shown when the search does not return any results._
+3. **Sorting By Name of Business - Page 5:**
+   ![Sorting](https://i.imgur.com/dxv2p6l.png)
+   Sorting By Name of Business; page 5.
+
+4. **Loading Table Page:**
+   ![Loading Page](https://i.imgur.com/xomXbdT.png)
+   Loading Table Page...
+
+5. **Last Page:**
+   ![Last Page](https://i.imgur.com/PSyMdv9.png)
+   Last Page of Search Results.
+
+6. **No Result:**
+   ![No Result](https://i.imgur.com/0NqnIq4.png)
+   No Result: Shown when the search does not return any results.
