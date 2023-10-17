@@ -23,7 +23,7 @@ const IRSLocator = () => {
     dispatch(setTableLoading(true))
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_BASE_API}/api/scrape?state=${state}&zipCode=${zipCode}`)
+      const response = await fetch(`${process.env.REACT_APP_BASE_API}api/scrape?state=${state}&zipCode=${zipCode}`)
 
       if (response.ok) {
         const data = await response.json()
