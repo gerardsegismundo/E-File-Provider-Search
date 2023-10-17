@@ -40,8 +40,8 @@ const IRSLocator = () => {
         dispatch(setIRSProviders([]))
       }
     } catch (error) {
-      dispatch(setIRSProviders([]))
       dispatch(setFetchFailed(true))
+      dispatch(setIRSProviders([]))
     } finally {
       dispatch(setTableLoading(false))
     }
@@ -50,7 +50,7 @@ const IRSLocator = () => {
   return (
     <Form onFinish={onFinish} className='irs-locator' layout='inline' style={{ flexDirection: 'column' }}>
       <Typography.Title level={1} style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>
-        File Provider Search Tool
+        E-File Provider Search Tool
       </Typography.Title>
       <Flex>
         <Form.Item label='Address' style={{ fontWeight: 600 }}>

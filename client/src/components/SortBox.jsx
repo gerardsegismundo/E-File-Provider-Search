@@ -16,7 +16,7 @@ const SortBox = () => {
   }
 
   return (
-    <Flex align='self-end' style={{ marginLeft: 'auto' }} className='sort-box'>
+    <Flex align='self-end' style={{ marginLeft: 'auto' }}>
       <label htmlFor='SortBy' style={{ fontWeight: 600, marginBottom: '0.5rem', marginRight: '0.5rem' }}>
         SortBy:
       </label>

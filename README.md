@@ -37,6 +37,7 @@ To start the application, use the following command: `$ npm run dev`.
 1. **Search Result:**
    ![Search Result](https://i.imgur.com/lrnIq57.png)
    Displays 10 results with each fetch, along with the count of matching items, similar to the IRS webpage.
+   Added a better pagination for better user experience
 
 2. **Loading Search Results:**
    ![Loading Search Results](https://i.imgur.com/HMcZMOz.png)

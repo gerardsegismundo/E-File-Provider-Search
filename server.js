@@ -4,7 +4,7 @@ import path from 'path'
 
 import scrapeRoute from './routes/scrape.js'
 
-// const __dirname = path.dirname(new URL(import.meta.url).pathname)
+const __dirname = path.dirname(new URL(import.meta.url).pathname)
 
 const app = express()
 app.use(cors())
