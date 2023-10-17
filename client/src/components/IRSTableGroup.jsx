@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { useSelector, useDispatch } from 'react-redux'
 import { setIRSProviders, setDisplayNumbers, setCurrentPage, setFetchFailed } from '../redux/slice/IRSTableSlice'
-import { Typography, Table, Pagination, Skeleton, Result, Spin, Space } from 'antd'
+import { Typography, Table, Pagination, Skeleton, Result, Spin, Space, Flex } from 'antd'
 
 const { Title } = Typography
 
@@ -59,10 +59,13 @@ const IRSTableGroup = () => {
     <div className='irs-table-group'>
       {foundMatches > 0 && (
         <>
-          <Title level={2}>Found {foundMatches} matching items.</Title>
-          <Title level={3}>
-            Displaying {displayNumbers.start} - {displayNumbers.end}:
-          </Title>
+          <Title level={2}>Authorized IRS e-file Providers</Title>
+          <Flex>
+            <Title level={3}>
+              Found {foundMatches.toLocaleString()} matching items. Displaying {displayNumbers.start} -{' '}
+              {displayNumbers.end}:
+            </Title>
+          </Flex>
           {pageLoading ? (
             <Skeleton active paragraph={{ rows: 20 }} />
           ) : (
