@@ -26,7 +26,7 @@ Before you begin, ensure you have the following installed:
 
 1. Clone or download the project to your local machine.
 2. In the project's root directory, install server-side dependencies by running: `$ npm install`.
-3. In the project's root directory, install client-side dependencies by running: `$ npm run client-install`.
+3. In the project's root directory, install client-side dependencies by running: `$ npm run clientinstall`.
 
 ### Running the Application
 
